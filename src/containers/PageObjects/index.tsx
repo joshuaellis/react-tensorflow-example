@@ -7,17 +7,17 @@ import { ModelInterface, useObjectDetect, ObjectDetectClassified } from 'react-t
 import { objectsExample } from 'references/codeExamples'
 import { COCO_SSD_CLASSES } from 'references/cocossdClasses'
 
-import getTensorFromImg from 'helpers/getTensorFromImg'
-
 import BoundingBox from 'components/BoundingBox'
 
-export default function PageObjects () {
+export default function PageObjects (): JSX.Element {
   const classes = useStyles()
 
   const imgRef = React.useRef<HTMLImageElement>(null)
   const [imgLoaded, setImgLoad] = React.useState<boolean>(false)
 
-  const handleImgLoad = () => setImgLoad(true)
+  const handleImgLoad = (): void => {
+    setImgLoad(true)
+  }
 
   React.useEffect(() => {
     Prism.highlightAll()
@@ -27,7 +27,7 @@ export default function PageObjects () {
     if (model && model instanceof tf.GraphModel) {
       const zeroTensor = tf.zeros([1, 300, 300, 3], 'int32')
       const result = (await model.executeAsync(zeroTensor)) as tf.Tensor[]
-      await Promise.all(result.map(t => t.data()))
+      await Promise.all(result.map(async t => await t.data()))
       result.map(t => t.dispose())
       zeroTensor.dispose()
     }
@@ -46,9 +46,9 @@ export default function PageObjects () {
   React.useEffect(() => {
     if (imgLoaded) {
       const { current: img } = imgRef
-      if(img){
+      if (img) {
         const tensor = tf.tidy(() => {
-          const tens= tf.browser.fromPixels(img)
+          const tens = tf.browser.fromPixels(img)
 
           return tens.expandDims(0).cast('int32')
         })
@@ -69,11 +69,11 @@ export default function PageObjects () {
         </header>
         <section className={classes.section}>
           <Typography color='textPrimary' component='p' variant='body1'>
-            This example uses useObjectDetect hook to analyze an image 
-            and return the class, probability and bounding box of the 
-            objects. The useObjectDetect hook is currently running the 
+            This example uses useObjectDetect hook to analyze an image
+            and return the class, probability and bounding box of the
+            objects. The useObjectDetect hook is currently running the
             cocossd{' '}<code>mobilenet_v2</code> model from <code>tfhub</code>.
-            For this model, we provide a warmup function by using the{' '} 
+            For this model, we provide a warmup function by using the{' '}
             <code>onLoadCallback</code> argument.
           </Typography>
         </section>
@@ -86,17 +86,17 @@ export default function PageObjects () {
           >
             Actual example
           </Typography>
-          <div style={{position:'relative'}}>
+          <div style={{ position: 'relative' }}>
             <img
               onLoad={handleImgLoad}
               className={classes.exampleImage}
               ref={imgRef}
               src={'/public/images/object-room.webp'}
               />
-              {objects ? objects.map((object: ObjectDetectClassified) => <BoundingBox box={object.boundingBox} label={object.class} probability={object.probability} />) : null}
+              {objects ? (objects as ObjectDetectClassified[]).map((object) => <BoundingBox key={object.class} box={object.boundingBox} label={object.class} probability={object.probability} />) : null}
           </div>
           <Paper className={classes.prediction} elevation={0}>
-            {objects ? objects.map((object: ObjectDetectClassified) => (
+            {objects ? (objects as ObjectDetectClassified[]).map((object) => (
               <React.Fragment key={object.class}>
                 <Typography color='textPrimary' component='p' variant='body1'>
                   Prediction: {object.class}

@@ -7,7 +7,7 @@ import { useWebcam, useClassifier } from 'react-tensorflow'
 import { classificationExample } from 'references/codeExamples'
 import { IMAGENET_CLASSES } from 'references/mobilenetHocClasses'
 
-export default function PageClassifier () {
+export default function PageClassifier (): JSX.Element {
   const classes = useStyles()
 
   React.useEffect(() => {
@@ -39,7 +39,7 @@ export default function PageClassifier () {
         <section className={classes.section}>
           <Typography color='textPrimary' component='p' variant='body1'>
             This example uses the useWebcam hook to create tensors from the
-            user's camera, when this is returned we can pass it to useClassifer
+            user&aposs camera, when this is returned we can pass it to useClassifer
             hook that is currently running the mobilenet{' '}
             <code>mobilenet_v2_050_192</code> model from <code>tfhub</code>.
           </Typography>
