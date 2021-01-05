@@ -6073,10 +6073,10 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-tensorflow@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-tensorflow/-/react-tensorflow-2.0.0.tgz#c8484a060f5e09869d6117ec37c45547eadf4f4d"
-  integrity sha512-5MIVqh9GNj0cnq+R5nA1vkf3mMJW7Ci/pGGDVXUGG84gNQ58lSAmIxL6HKTa7kDv0+TnRmVHJdb6WUgbyTWaAw==
+react-tensorflow@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-tensorflow/-/react-tensorflow-2.1.0.tgz#49a517176535d296a97f56bd38bc66ee9fa46be3"
+  integrity sha512-HDwP8krCS2OpcqgygF4r5737ymWFfiuCea92Wzinb/tNhisJBkcaZrZGADTNg6Fdl5GvgugOB1NTCiSsy2LHiQ==
 
 react-transition-group@^4.4.0:
   version "4.4.1"
